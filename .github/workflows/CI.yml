@@ -25,6 +25,7 @@ jobs:
 
       # Step 3: Install dependencies and Jest for backend
       - name: Install dependencies (backend)
+        working-directory: ./client
         run: npm install && npm install --save-dev jest
 
       # Step 4: Install dependencies and Jest for frontend
