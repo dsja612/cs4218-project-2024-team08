@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     branches:
-      - main
+      - '*'
 
 jobs:
   test:
@@ -25,6 +25,7 @@ jobs:
 
       # Step 3: Install dependencies and Jest for backend
       - name: Install dependencies (backend)
+        working-directory: ./
         run: npm install && npm install --save-dev jest
 
       # Step 4: Install dependencies and Jest for frontend
@@ -32,14 +33,7 @@ jobs:
         working-directory: ./client
         run: npm install && npm install --save-dev jest
 
-      # Step 5: Set up environment variables from GitHub Secrets
-      - name: Setup environment variables
-        run: |
-          echo "NODE_ENV=production" >> $GITHUB_ENV
-          echo "API_KEY=${{ secrets.API_KEY }}"
-          echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
       # Step 5: Run tests
       - name: Run tests
-        run: npm test
+        working-directory: ./
+        run: npm run test
